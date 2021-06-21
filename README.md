@@ -1,1 +1,1 @@
-# clever-project-name-you-love-it
+# clever-project-name -> you'll-love-it
