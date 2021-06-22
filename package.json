@@ -1,0 +1,34 @@
+{
+  "name": "clever-project-name-youll-love-it",
+  "version": "1.0.0",
+  "description": "SDC project for hack-reactor. Building out backend for the Catwalk App.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "npx nodemon ./API/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RFP53-SDC-MERRY/clever-project-name-youll-love-it.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RFP53-SDC-MERRY/clever-project-name-youll-love-it/issues"
+  },
+  "homepage": "https://github.com/RFP53-SDC-MERRY/clever-project-name-youll-love-it#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "lodash": "^4.17.21",
+    "pg": "^8.6.0",
+    "sequelize": "^6.6.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.29.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "jest": "^27.0.5",
+    "nodemon": "^2.0.7"
+  }
+}
