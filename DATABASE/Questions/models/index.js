@@ -1,21 +1,44 @@
 const Sequelize = require('sequelize');
 const config = require('../config');
 
-const sequelize = new Sequelize(config.database, config.username, config.password);
+const sequelize = new Sequelize(`postgres://${config.username}@${config.host}:${config.port}/${config.database}`);
+module.exports.sequelize = sequelize;
+const { Question } = require('./question');
+const { Answer } = require('./answer');
+const { Photo } = require('./photo');
 
 const models = {
-  question: sequelize.import('./question.js'),
-  answer: sequelize.import('./answer.js'),
-  photo: sequelize.import('./photo'),
+  Question,
+  Answer,
+  Photo,
 };
 
-Object.keys(models).forEach((modelName) => {
-  if ('associate' in models[modelName]) {
-    models[modelName].associate(models);
+const associate = async () => {
+  try {
+    Object.keys(models).forEach((modelName) => {
+      if ('associate' in models[modelName]) {
+        models[modelName].associate(models);
+      }
+    });
+    console.log('tables associated');
+  } catch (err) {
+    console.error('Error associating the tables', err);
   }
-});
+};
 
-models.sequelize = sequelize;
-models.Sequelize = Sequelize;
+const connect = async () => {
+  try {
+    await sequelize.authenticate();
+    await Question.synchronize();
+    await Answer.synchronize();
+    await Photo.synchronize();
+    await associate();
+    console.log('Connection has been established successfully.');
+    sequelize.close();
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+};
+connect();
 
-export default models;
+module.exports.models = models;
