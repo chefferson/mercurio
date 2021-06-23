@@ -8,18 +8,40 @@ const client = new Client({
   database: 'testdata',
 });
 
-client.connect((err) => {
+client.connect();
+
+client.on('connect', (err) => {
   if (err) {
-    console.log(err);
+    throw err;
   } else {
-    console.log('db is connected');
+    console.log('DB Connection Open');
   }
 });
 
-client.query('select * from features where product_id=$1', [2], (err, result) => {
+client.on('end', (err) => {
+  if (err) {
+    throw err;
+  } else {
+    console.log('DB Connection Closed');
+  }
+});
+
+/* BELOW IS NEEDED FOR ETL */
+
+// client.query('UPDATE features SET product_id = product_id + 17066 WHERE product_id > 0',
+// (err, result) => {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log(result.rows);
+//   }
+// });
+
+client.query('select * from features where id < 2000', (err, result) => {
   if (err) {
     console.log(err);
   } else {
     console.log(result.rows);
   }
+  client.end();
 });
