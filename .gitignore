@@ -1,5 +1,5 @@
 node_modules/
-
-# Config
 .env
+config.js
 DATABASE/etlConfig.js
+

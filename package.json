@@ -9,6 +9,8 @@
     "initDB:Products": "node ./DATABASE/Products/utils/dbInit.js",
     "ETL:Questions": "node ./DATABASE/QuestionsETL.js",
     "ETL:Reviews": "node ./DATABASE/ReviewsETL.js",
+    "ETL:Overview": "node ./DATABASE/OverviewETL.js",
+    "build:QA": "node ./DATABASE/Questions/models/index.js",
     "resetAndPopulateDB:Reviews": "node ./DATABASE/Reviews/utils/resetAndPopulateDB"
   },
   "repository": {
@@ -23,6 +25,7 @@
   "homepage": "https://github.com/RFP53-SDC-MERRY/clever-project-name-youll-love-it#readme",
   "dependencies": {
     "axios": "^0.21.1",
+    "csv": "^5.5.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "lodash": "^4.17.21",
