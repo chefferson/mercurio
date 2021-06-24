@@ -5,7 +5,7 @@ const { Features } = require('./features');
 const { Skus } = require('./skus');
 const { Photos } = require('./photos');
 const { Relateds } = require('./related');
-const { loadData, transformData } = require('../ProductsETL');
+const { loadData } = require('../ProductsETL');
 
 require('dotenv').config();
 
