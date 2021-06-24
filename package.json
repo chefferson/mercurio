@@ -8,7 +8,7 @@
     "start:dev": "npx nodemon ./API/index.js",
     "ETL:Overview": "node ./DATABASE/OverviewETL.js",
     "build:QA": "node ./DATABASE/Questions/models/index.js",
-    "ETL:Reviews": "node ./DATABASE/ReviewsETL.js"
+    "resetAndPopulateDB:Reviews": "node ./DATABASE/Reviews/utils/resetAndPopulateDB"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "sequelize": "^6.6.2"
   },
   "devDependencies": {
+    "csv": "^5.5.0",
     "eslint": "^7.29.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.23.4",
