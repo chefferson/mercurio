@@ -12,7 +12,7 @@ const {
 
 const sequelize = new Sequelize(`${DB_PRODUCTS_TYPE}://${DB_PRODUCTS_USER}@${DB_PRODUCTS_HOST}:${DB_PRODUCTS_PORT}/${DB_PRODUCTS_NAME}`);
 
-const Related = sequelize.define('Related', {
+const Relateds = sequelize.define('Relateds', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -28,4 +28,4 @@ const Related = sequelize.define('Related', {
   timestamps: false,
 });
 
-module.exports.Related = Related;
+module.exports.Relateds = Relateds;

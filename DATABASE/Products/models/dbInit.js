@@ -4,7 +4,8 @@ const { Styles } = require('./styles');
 const { Features } = require('./features');
 const { Skus } = require('./skus');
 const { Photos } = require('./photos');
-const { Related } = require('./related');
+const { Relateds } = require('./related');
+const { loadData, transformData } = require('../ProductsETL');
 
 require('dotenv').config();
 
@@ -25,22 +26,24 @@ const synchronize = async () => {
     await Features.sync({ force: true });
     await Skus.sync({ force: true });
     await Photos.sync({ force: true });
-    await Related.sync({ force: true });
+    await Relateds.sync({ force: true });
     console.log('Synchronization successful');
   } catch (error) {
     console.error('Unable to synchronize the database:', error);
   }
 };
 
-const connect = async () => {
+const initialize = async () => {
   try {
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
     await synchronize();
+    await loadData();
+    // await transformData();
     sequelize.close();
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
 };
 
-connect();
+initialize();

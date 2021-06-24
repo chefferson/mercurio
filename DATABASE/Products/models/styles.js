@@ -18,14 +18,14 @@ const Styles = sequelize.define('Styles', {
     primaryKey: true,
     unique: true,
   },
-  product_Id: {
+  product_id: {
     type: DataTypes.INTEGER,
   },
   name: {
     type: DataTypes.TEXT,
   },
   sale_price: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.TEXT,
   },
   original_price: {
     type: DataTypes.INTEGER,
