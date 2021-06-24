@@ -1,23 +1,11 @@
-const { Sequelize } = require('sequelize');
-const { Products } = require('./product');
-const { Styles } = require('./styles');
-const { Features } = require('./features');
-const { Skus } = require('./skus');
-const { Photos } = require('./photos');
-const { Relateds } = require('./related');
-const { loadData } = require('../ProductsETL');
-
-require('dotenv').config();
-
-const {
-  DB_PRODUCTS_TYPE,
-  DB_PRODUCTS_NAME,
-  DB_PRODUCTS_HOST,
-  DB_PRODUCTS_PORT,
-  DB_PRODUCTS_USER,
-} = process.env;
-
-const sequelize = new Sequelize(`${DB_PRODUCTS_TYPE}://${DB_PRODUCTS_USER}@${DB_PRODUCTS_HOST}:${DB_PRODUCTS_PORT}/${DB_PRODUCTS_NAME}`);
+const { sequelize } = require('./sequelizeInit');
+const { Products } = require('../models/product');
+const { Styles } = require('../models/styles');
+const { Features } = require('../models/features');
+const { Skus } = require('../models/skus');
+const { Photos } = require('../models/photos');
+const { Relateds } = require('../models/related');
+const { loadData } = require('../elt/ProductsETL');
 
 const synchronize = async () => {
   try {
