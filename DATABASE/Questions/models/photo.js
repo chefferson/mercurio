@@ -13,6 +13,8 @@ const Photo = sequelize.define('Photo', {
   url: {
     type: DataTypes.STRING,
   },
+}, {
+  timestamps: false,
 });
 
 Photo.associate = (models) => {

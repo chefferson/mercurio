@@ -11,10 +11,10 @@ const Answer = sequelize.define('Answer', {
     type: DataTypes.INTEGER,
   },
   body: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(1000),
   },
   date_written: {
-    type: DataTypes.DATE,
+    type: DataTypes.STRING,
   },
   answerer_name: {
     type: DataTypes.STRING,
@@ -22,10 +22,14 @@ const Answer = sequelize.define('Answer', {
   answerer_email: {
     type: DataTypes.STRING,
   },
+  reported: {
+    type: DataTypes.BOOLEAN,
+  },
   helpfulness: {
     type: DataTypes.INTEGER,
   },
-  reported: DataTypes.BOOLEAN,
+}, {
+  timestamps: false,
 });
 
 Answer.associate = (models) => {
