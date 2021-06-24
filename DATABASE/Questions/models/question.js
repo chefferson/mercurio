@@ -14,7 +14,7 @@ const Question = sequelize.define('Question', {
     type: DataTypes.STRING(1000),
   },
   date_written: {
-    type: DataTypes.STRING,
+    type: DataTypes.BIGINT,
   },
   asker_name: {
     type: DataTypes.STRING,

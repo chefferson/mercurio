@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "npx nodemon ./API/index.js",
     "ETL:Overview": "node ./DATABASE/OverviewETL.js",
-    "ETL:Questions": "node ./DATABASE/QuestionsETL.js",
+    "build:QA": "node ./DATABASE/Questions/models/index.js",
     "ETL:Reviews": "node ./DATABASE/ReviewsETL.js"
   },
   "repository": {

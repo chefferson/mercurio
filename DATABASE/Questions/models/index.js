@@ -3,6 +3,7 @@ const config = require('../config');
 
 const sequelize = new Sequelize(`postgres://${config.username}@${config.host}:${config.port}/${config.database}`);
 module.exports.sequelize = sequelize;
+const { ETL } = require('../QuestionsETL');
 const { Question } = require('./question');
 const { Answer } = require('./answer');
 const { Photo } = require('./photo');
@@ -33,6 +34,7 @@ const connect = async () => {
     await Answer.synchronize();
     await Photo.synchronize();
     await associate();
+    await ETL();
     console.log('Connection has been established successfully.');
     sequelize.close();
   } catch (error) {
