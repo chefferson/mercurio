@@ -8,7 +8,8 @@
     "start:dev": "npx nodemon ./API/index.js",
     "ETL:Overview": "node ./DATABASE/OverviewETL.js",
     "ETL:Questions": "node ./DATABASE/QuestionsETL.js",
-    "ETL:Reviews": "node ./DATABASE/ReviewsETL.js"
+    "ETL:Reviews": "node ./DATABASE/ReviewsETL.js",
+    "resetAndPopulateDB:Reviews": "node ./DATABASE/Reviews/utils/resetAndPopulateDB"
   },
   "repository": {
     "type": "git",
