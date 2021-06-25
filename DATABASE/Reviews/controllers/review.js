@@ -23,18 +23,34 @@ const setSortOrder = (sortMethod = 'newest') => {
 };
 
 module.exports.getReviews = async (req, res) => {
-  const page = rectifyNum(req.body.page, 0, 0, Number.POSITIVE_INFINITY);
-  const limit = rectifyNum(req.body.count, 5, 0, 500);
+  const page = rectifyNum(req.body.page, 1, 0, Number.POSITIVE_INFINITY);
+  const count = rectifyNum(req.body.count, 5, 0, 500);
   const order = setSortOrder(req.body.order);
   const productID = req.body.product_id;
+  const responseBody = {
+    product: productID,
+    page,
+    count,
+  };
   try {
-    const reviews = await Review.findAll({
+    responseBody.results = await Review.findAll({
       where: { product_id: productID },
       order,
-      limit,
-      offset: limit * page,
+      limit: count,
+      offset: count * page - count,
+      attributes: [
+        ['id', 'review_id'],
+        'rating',
+        'summary',
+        'body',
+        'recommend',
+        'response',
+        'date',
+        'reviewer_name',
+        'helpfulness',
+      ],
     });
-    res.send(reviews);
+    res.send(responseBody);
   } catch (err) {
     console.error(err);
     res.sendStatus(500);
