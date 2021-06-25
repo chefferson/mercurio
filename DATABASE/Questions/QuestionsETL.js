@@ -1,27 +1,17 @@
 const { QueryTypes } = require('sequelize');
 const { sequelize } = require('./models/index');
 const { questionsPath, answersPath, answersPhotosPath } = require('./config');
-/*
- * Load Questions
-COPY "Questions"
-FROM '/Users/jacobsantala/code/SDC/Data/questions.csv'
-DELIMITER ','
-CSV HEADER;
+const { Question } = require('./models/question');
+const { Answer } = require('./models/answer');
+const { Photo } = require('./models/photo');
 
- * Load Answers
-COPY "Answers"
-FROM '/Users/jacobsantala/code/SDC/Data/answers.csv'
-DELIMITER ','
-CSV HEADER;
+const models = {
+  Question,
+  Answer,
+  Photo,
+};
 
- * Load Photos
-COPY "Photos"
-FROM '/Users/jacobsantala/code/SDC/Data/answers_photos.csv'
-DELIMITER ','
-CSV HEADER;
- */
-
-module.exports.ETL = async () => {
+const ETL = async () => {
   try {
     await sequelize.query(
       `COPY "Questions" FROM '${questionsPath}' DELIMITER ',' CSV HEADER;`, {
@@ -48,3 +38,32 @@ module.exports.ETL = async () => {
     console.error('ETL FAILED', err);
   }
 };
+
+const associate = async () => {
+  try {
+    Object.keys(models).forEach((modelName) => {
+      if ('associate' in models[modelName]) {
+        models[modelName].associate(models);
+      }
+    });
+    console.log('tables associated');
+  } catch (err) {
+    console.error('Error associating the tables', err);
+  }
+};
+
+const reset = async () => {
+  try {
+    await sequelize.authenticate();
+    await Question.synchronize();
+    await Answer.synchronize();
+    await Photo.synchronize();
+    await associate();
+    await ETL();
+    console.log('Connection has been established successfully.');
+    sequelize.close();
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+};
+reset();
