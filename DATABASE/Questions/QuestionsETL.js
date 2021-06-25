@@ -5,12 +5,6 @@ const { Question } = require('./models/question');
 const { Answer } = require('./models/answer');
 const { Photo } = require('./models/photo');
 
-const models = {
-  Question,
-  Answer,
-  Photo,
-};
-
 const ETL = async () => {
   try {
     await sequelize.query(
@@ -34,21 +28,20 @@ const ETL = async () => {
     await sequelize.query(
       'ALTER TABLE "Answers" ALTER COLUMN date_written TYPE timestamp without time zone USING TO_TIMESTAMP(date_written / 1000);',
     );
+    await sequelize.query(
+      'ALTER TABLE "Questions" ALTER COLUMN date_written SET DEFAULT CURRENT_TIMESTAMP(0);',
+    );
+    await sequelize.query(
+      'ALTER TABLE "Answers" ALTER COLUMN date_written SET DEFAULT CURRENT_TIMESTAMP(0);',
+    );
+    await sequelize.query('CREATE INDEX product_idx ON "Questions" (product_id)');
+    await sequelize.query('CREATE INDEX question_idx ON "Answers" (question_id)');
+    await sequelize.query('CREATE INDEX answer_idx ON "Photos" (answer_id)');
+    await sequelize.query('SELECT setval(\'"Questions_id_seq"\', (SELECT MAX(id) FROM "Questions"));');
+    await sequelize.query('SELECT setval(\'"Answers_id_seq"\', (SELECT MAX(id) FROM "Answers"));');
+    await sequelize.query('SELECT setval(\'"Photos_id_seq"\', (SELECT MAX(id) FROM "Photos"));');
   } catch (err) {
     console.error('ETL FAILED', err);
-  }
-};
-
-const associate = async () => {
-  try {
-    Object.keys(models).forEach((modelName) => {
-      if ('associate' in models[modelName]) {
-        models[modelName].associate(models);
-      }
-    });
-    console.log('tables associated');
-  } catch (err) {
-    console.error('Error associating the tables', err);
   }
 };
 
@@ -58,7 +51,6 @@ const reset = async () => {
     await Question.synchronize();
     await Answer.synchronize();
     await Photo.synchronize();
-    await associate();
     await ETL();
     console.log('Connection has been established successfully.');
     sequelize.close();

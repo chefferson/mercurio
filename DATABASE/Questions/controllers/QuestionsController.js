@@ -1,10 +1,22 @@
-const Sequelize = require('sequelize');
-const { sequelize } = require('../models/index');
 const { Question } = require('../models/question');
+const { Answer } = require('../models/answer');
+const { Photo } = require('../models/photo');
 
-const getQuestions = (productId, count, page) => (
+const getQuestions = (productId, count) => (
   new Promise((resolve, reject) => {
     Question.findAll({
+      include: [
+        {
+          model: Answer,
+          as: 'answers',
+          include: [
+            {
+              model: Photo,
+              as: 'photos',
+            },
+          ],
+        },
+      ],
       where: {
         product_id: productId,
       },
@@ -17,15 +29,17 @@ const getQuestions = (productId, count, page) => (
   })
 );
 
-const postQuestion = ({body, name, email, product_id}) => (
+const postQuestion = ({
+  body, name, email, productId,
+}) => (
   new Promise((resolve, reject) => {
     Question.create({
-      product_id,
+      product_id: productId,
       body,
-      name,
-      email,
-    }, {
-      fields: ['product_id', 'body', 'asker_name', 'asker_email'],
+      asker_name: name,
+      asker_email: email,
+      reported: false,
+      helpfulness: 0,
     }).then((result) => {
       resolve(result);
     }).catch((err) => {
@@ -36,4 +50,5 @@ const postQuestion = ({body, name, email, product_id}) => (
 
 module.exports = {
   getQuestions,
+  postQuestion,
 };
