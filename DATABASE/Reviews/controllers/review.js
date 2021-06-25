@@ -1,4 +1,5 @@
 const Review = require('../models/review');
+const ReviewPhoto = require('../models/reviewPhoto');
 const { sequelize } = require('../db');
 
 const rectifyNum = (num, defaultNum = 5, min = 0, max = 500) => {
@@ -49,6 +50,14 @@ module.exports.getReviews = async (req, res) => {
         'reviewer_name',
         'helpfulness',
       ],
+      include: {
+        model: ReviewPhoto,
+        attributes: [
+          'id',
+          'url',
+        ],
+        as: 'photos',
+      },
     });
     res.send(responseBody);
   } catch (err) {

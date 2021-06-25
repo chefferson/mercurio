@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../db');
-// const { Review } = require('./review');
 
 /**
  * ReviewPhoto has a foreign key constraint commented out. The query to copy the prexisting
