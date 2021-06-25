@@ -1,11 +1,9 @@
 const express = require('express');
+const controllers = require('../DATABASE/Reviews/controllers');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  const params = req.body;
-  res.send();
-});
+router.get('/', controllers.Review.getReviews);
 
 router.get('/meta', (req, res) => {
   const params = req.body;
