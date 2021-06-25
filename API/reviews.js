@@ -5,10 +5,7 @@ const router = express.Router();
 
 router.get('/', controllers.Review.getReviews);
 
-router.get('/meta', (req, res) => {
-  const params = req.body;
-  res.send();
-});
+router.get('/meta', controllers.Review.getReviewsMeta);
 
 router.post('/', (req, res) => {
   const params = req.body;
