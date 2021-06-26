@@ -11,6 +11,7 @@ const ReviewPhoto = sequelize.define('ReviewPhoto', {
     type: DataTypes.INTEGER,
     primaryKey: true,
     unique: true,
+    autoIncrement: true,
   },
   review_id: {
     type: DataTypes.INTEGER,
