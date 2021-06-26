@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build:tests": "webpack -w",
     "start:dev": "npx nodemon ./API/index.js",
     "initDB:Products": "node ./DATABASE/Products/utils/dbInit.js",
+    "Test:QuestionsGET": "k6 run Tests/QuestionsGET.js",
+    "Test:AnswersGET": "k6 run Tests/AnswersGET.js",
     "ETL:Questions": "node ./DATABASE/Questions/QuestionsETL.js",
     "ETL:Reviews": "node ./DATABASE/ReviewsETL.js",
     "ETL:Overview": "node ./DATABASE/OverviewETL.js",
@@ -33,11 +36,13 @@
     "sequelize": "^6.6.2"
   },
   "devDependencies": {
+    "core-js": "^3.15.1",
     "csv": "^5.5.0",
     "eslint": "^7.29.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.23.4",
     "jest": "^27.0.5",
+    "k6": "*",
     "nodemon": "^2.0.7"
   }
 }
