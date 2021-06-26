@@ -33,7 +33,8 @@ const indexesToBuild = [
   },
 ];
 
-const buildIndexes = async (indexes) => {
+const buildIndexes = async (indexes = indexesToBuild) => {
+  console.log('Building indexes...');
   const operations = [];
   indexes.forEach((spec) => {
     operations.push(sequelize.query(`CREATE INDEX IF NOT EXISTS "${spec.name}" ON "${spec.table}" (${spec.column});`));
@@ -43,6 +44,7 @@ const buildIndexes = async (indexes) => {
   } catch (err) {
     console.error(err);
   }
+  console.log('Finished building indexes');
 };
 
-buildIndexes(indexesToBuild);
+module.exports = buildIndexes;
