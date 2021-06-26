@@ -3,3 +3,4 @@ exports.Characteristic = require('./characteristic');
 exports.Review = require('./review');
 exports.ReviewPhoto = require('./reviewPhoto');
 exports.reviewCreate = require('./reviewCreate');
+exports.markHelpful = require('./markHelpful');
