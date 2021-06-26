@@ -7,10 +7,7 @@ router.get('/', controllers.Review.getReviews);
 
 router.get('/meta', controllers.Review.getReviewsMeta);
 
-router.post('/', (req, res) => {
-  const params = req.body;
-  res.sendStatus(201);
-});
+router.post('/', controllers.reviewCreate);
 
 router.put('/:review_id/helpful', (req, res) => {
   const reviewID = req.params.review_id;
