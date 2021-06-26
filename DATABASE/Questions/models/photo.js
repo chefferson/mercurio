@@ -6,6 +6,7 @@ const Photo = sequelize.define('Photo', {
     type: DataTypes.INTEGER,
     primaryKey: true,
     unique: true,
+    autoIncrement: true,
   },
   answer_id: {
     type: DataTypes.INTEGER,
@@ -16,12 +17,6 @@ const Photo = sequelize.define('Photo', {
 }, {
   timestamps: false,
 });
-
-Photo.associate = (models) => {
-  Photo.hasOne(models.Answer, {
-    foreignKey: 'answer_id',
-  });
-};
 
 Photo.synchronize = async () => {
   try {
