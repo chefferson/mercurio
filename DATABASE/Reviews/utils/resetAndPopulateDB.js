@@ -15,20 +15,37 @@ const INPUT_FILE_REVIEW_PHOTOS = etlConfig.REVIEWS_INPUT_FILE_REVIEW_PHOTOS;
 const INPUT_FILE_CHARACTERISTICS = etlConfig.REVIEWS_INPUT_FILE_CHARACTERISTICS;
 const INPUT_FILE_CHARACTERISTICS_REVIEWS = etlConfig.REVIEWS_INPUT_FILE_CHARACTERISTICS_REVIEWS;
 
-const sequelizeModels = [
-  models.Review,
-  models.ReviewPhoto,
-  models.Characteristic,
-  models.CharacteristicReview,
-];
+const sequelizeModels = {
+  phase1: [
+    models.Review,
+    models.Characteristic,
+  ],
+  phase2: [
+    models.ReviewPhoto,
+    models.CharacteristicReview,
+  ],
+};
 
 const resetDB = async (dbModels) => {
   console.log('Resetting DB...');
-  const operations = [];
-  dbModels.forEach((model) => {
-    operations.push(model.sync({ force: true }));
+  const operations1 = [];
+  dbModels.phase1.forEach((model) => {
+    operations1.push(model.sync({ force: true }));
   });
-  await Promise.all(operations);
+  try {
+    await Promise.all(operations1);
+  } catch (err) {
+    console.error(err);
+  }
+  const operations2 = [];
+  dbModels.phase2.forEach((model) => {
+    operations2.push(model.sync({ force: true }));
+  });
+  try {
+    await Promise.all(operations2);
+  } catch (err) {
+    console.error(err);
+  }
   console.log('Finished resetting DB');
 };
 
@@ -68,6 +85,8 @@ const resetAndPopulateDB = async () => {
   try {
     await resetDB(sequelizeModels);
     await copyData();
+    // The autoincrement for Reviews needs to start after the highest pre-existing ID
+    await sequelize.query('ALTER SEQUENCE "Reviews_id_seq" RESTART WITH 5774953;');
   } catch (err) {
     console.error(err);
   }
