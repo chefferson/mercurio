@@ -1,11 +1,13 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('./index');
+const { Answer } = require('./answer');
 
 const Question = sequelize.define('Question', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     unique: true,
+    autoIncrement: true,
   },
   product_id: {
     type: DataTypes.INTEGER,
@@ -32,11 +34,10 @@ const Question = sequelize.define('Question', {
   timestamps: false,
 });
 
-Question.associate = (models) => {
-  Question.hasMany(models.Answer, {
-    foreignKey: 'questions_id',
-  });
-};
+Question.hasMany(Answer, {
+  foreignKey: 'question_id',
+  as: 'answers',
+});
 
 Question.synchronize = async () => {
   try {
