@@ -49,7 +49,7 @@ const getCharacteristicAverages = async (productID) => {
 module.exports.getReviews = async (req, res) => {
   const page = rectifyNum(req.body.page, 1, 0, Number.POSITIVE_INFINITY);
   const count = rectifyNum(req.body.count, 5, 0, 500);
-  const order = setSortOrder(req.body.order);
+  const order = setSortOrder(req.body.sort);
   const productID = req.body.product_id;
   const responseBody = {
     product: productID,
