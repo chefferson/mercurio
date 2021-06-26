@@ -39,7 +39,7 @@ function getProductFeatures(productId) {
 function getProductRelateds(productId) {
   const featureParams = {
     attributes: ['related_product_id'],
-    where: { product_id: productId },
+    where: { current_product_id: productId },
   };
   return Relateds.findAll(featureParams);
 }
@@ -51,17 +51,24 @@ function getProductStyles(productId) {
   return Styles.findAll(featureParams);
 }
 
-function getStyleSKUs(styleId) {
+function getStyleSKUs(styleIdRange) {
   const featureParams = {
-    where: { product_id: styleId },
+    where: {
+      style_id: {
+        [Op.or]: styleIdRange,
+      },
+    },
   };
   return Skus.findAll(featureParams);
 }
 
-function getStylePhotos(styleId) {
+function getStylePhotos(styleIdRange) {
   const featureParams = {
-    attributes: ['size', 'quantity'],
-    where: { product_id: styleId },
+    where: {
+      style_id: {
+        [Op.or]: styleIdRange,
+      },
+    },
   };
   return Photos.findAll(featureParams);
 }
