@@ -30,13 +30,15 @@ const copyCharacteristicReviews = async () => {
 
 const populateDB = async () => {
   console.log('Copying data into DB (this may take a while)...');
-  const processes = [];
-  processes.push(copyReviews());
-  processes.push(copyReviewPhotos());
-  processes.push(copyCharacteristics());
-  processes.push(copyCharacteristicReviews());
   try {
-    await Promise.all(processes);
+    await Promise.all([
+      copyReviews(),
+      copyCharacteristics(),
+    ]);
+    await Promise.all([
+      copyCharacteristicReviews(),
+      copyReviewPhotos(),
+    ]);
   } catch (err) {
     console.error(err);
   }

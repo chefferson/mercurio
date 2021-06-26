@@ -3,11 +3,11 @@ const Characteristic = require('./characteristic');
 const Review = require('./review');
 const ReviewPhoto = require('./reviewPhoto');
 
-// Review.hasMany(ReviewPhoto, {
-//   foreignKey: 'review_id',
-//   as: 'photos',
-// });
-// ReviewPhoto.belongsTo(Review);
+Review.hasMany(ReviewPhoto, {
+  foreignKey: 'review_id',
+  as: 'photos',
+});
+ReviewPhoto.belongsTo(Review);
 
 /**
  * Below are my many attempts to create a working many-to-many association between the Review and
