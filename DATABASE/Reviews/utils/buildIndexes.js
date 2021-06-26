@@ -3,22 +3,46 @@ const { sequelize } = require('../db');
 const indexesToBuild = [
   {
     table: 'Reviews',
-    name: 'product_id_index',
+    name: 'Reviews_product_id_index',
     column: 'product_id',
   },
   {
     table: 'ReviewPhotos',
-    name: 'photo',
+    name: 'ReviewPhotos_review_id_index',
     column: 'review_id',
+  },
+  {
+    table: 'CharacteristicReviews',
+    name: 'CharacteristicReviews_review_id_index',
+    column: 'review_id',
+  },
+  {
+    table: 'CharacteristicReviews',
+    name: 'CharacteristicReviews_characteristic_id_index',
+    column: 'characteristic_id',
+  },
+  {
+    table: 'Characteristics',
+    name: 'Characteristics_name_index',
+    column: 'name',
+  },
+  {
+    table: 'Characteristics',
+    name: 'Characteristics_product_id_index',
+    column: 'product_id',
   },
 ];
 
 const buildIndexes = async (indexes) => {
   const operations = [];
   indexes.forEach((spec) => {
-    operations.push(sequelize.query(`CREATE INDEX IF NOT EXISTS ${spec.name} ON "${spec.table}" (${spec.column});`));
+    operations.push(sequelize.query(`CREATE INDEX IF NOT EXISTS "${spec.name}" ON "${spec.table}" (${spec.column});`));
   });
-  await Promise.all(operations);
+  try {
+    await Promise.all(operations);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 buildIndexes(indexesToBuild);

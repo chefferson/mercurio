@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../db');
-const ReviewPhoto = require('./reviewPhoto');
+// const ReviewPhoto = require('./reviewPhoto');
 
 const Review = sequelize.define('Review', {
   id: {
@@ -43,9 +43,9 @@ const Review = sequelize.define('Review', {
   updatedAt: false,
 });
 
-Review.hasMany(ReviewPhoto, {
-  foreignKey: 'review_id',
-  as: 'photos',
-});
+// Review.hasMany(ReviewPhoto, {
+//   foreignKey: 'review_id',
+//   as: 'photos',
+// });
 
 module.exports = Review;
