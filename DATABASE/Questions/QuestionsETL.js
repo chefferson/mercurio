@@ -34,9 +34,9 @@ const ETL = async () => {
     await sequelize.query(
       'ALTER TABLE "Answers" ALTER COLUMN date_written SET DEFAULT CURRENT_TIMESTAMP(0);',
     );
-    await sequelize.query('CREATE INDEX product_idx ON "Questions" (product_id)');
-    await sequelize.query('CREATE INDEX question_idx ON "Answers" (question_id)');
-    await sequelize.query('CREATE INDEX answer_idx ON "Photos" (answer_id)');
+    await sequelize.query('CREATE INDEX product_idx ON "Questions" USING HASH (product_id)');
+    await sequelize.query('CREATE INDEX question_idx ON "Answers" USING HASH (question_id)');
+    await sequelize.query('CREATE INDEX answer_idx ON "Photos" USING HASH (answer_id)');
     await sequelize.query('SELECT setval(\'"Questions_id_seq"\', (SELECT MAX(id) FROM "Questions"));');
     await sequelize.query('SELECT setval(\'"Answers_id_seq"\', (SELECT MAX(id) FROM "Answers"));');
     await sequelize.query('SELECT setval(\'"Photos_id_seq"\', (SELECT MAX(id) FROM "Photos"));');
