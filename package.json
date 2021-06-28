@@ -11,6 +11,8 @@
     "Test:ProductsGET": "k6 run Tests/ProductsGET.js",
     "Test:QuestionsGET": "k6 run Tests/QuestionsGET.js",
     "Test:AnswersGET": "k6 run Tests/AnswersGET.js",
+    "Test:ReviewsGET": "k6 run Tests/ReviewsGET.js",
+    "Test:ReviewsMetaGET": "k6 run Tests/ReviewsMetaGET.js",
     "ETL:Questions": "node ./DATABASE/Questions/QuestionsETL.js",
     "ETL:Reviews": "node ./DATABASE/ReviewsETL.js",
     "ETL:Overview": "node ./DATABASE/OverviewETL.js",
