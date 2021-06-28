@@ -10,7 +10,9 @@ const {
   DB_REVIEWS_USER,
 } = process.env;
 
-const sequelize = new Sequelize(`${DB_REVIEWS_TYPE}://${DB_REVIEWS_USER}@${DB_REVIEWS_HOST}:${DB_REVIEWS_PORT}/${DB_REVIEWS_NAME}`);
+const sequelize = new Sequelize(`${DB_REVIEWS_TYPE}://${DB_REVIEWS_USER}@${DB_REVIEWS_HOST}:${DB_REVIEWS_PORT}/${DB_REVIEWS_NAME}`, {
+  logging: false,
+});
 
 module.exports = {
   sequelize,
