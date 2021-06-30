@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  server:
+    image: merry-server
+    command: npm start
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    working_dir: /app
+    build:
+      context: .
+
+  postgres:
+    image: postgres
+    ports:
+      - ${DB_REVIEWS_PORT}:${DB_REVIEWS_PORT}
+    volumes:
+      - type: volume
+        source: postgres
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: /Users/esadur/sdc-data
+        target: /data-local
+    environment:
+      PGUSER: ${DB_REVIEWS_USER}
+      POSTGRES_DB: ${DB_REVIEWS_NAME}
+      POSTGRES_USER: ${DB_REVIEWS_USER}
+      POSTGRES_PASSWORD: ${DB_REVIEWS_PASSWORD}
+
+volumes:
+  postgres:
