@@ -15,6 +15,10 @@ app.use('/products', products);
 app.use('/qa', qa);
 app.use('/reviews', reviews);
 
+app.get('/loaderio-ecf03d8890983bbc217f84a581ac2ce2', (req, res) => {
+  res.send('loaderio-ecf03d8890983bbc217f84a581ac2ce2');
+});
+
 app.listen(process.env.SERVER_PORT, () => {
   console.log(`listening on port ${process.env.SERVER_PORT}`);
 });
