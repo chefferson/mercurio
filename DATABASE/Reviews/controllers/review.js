@@ -47,10 +47,10 @@ const getCharacteristicAverages = async (productID) => {
 };
 
 module.exports.getReviews = async (req, res) => {
-  const page = rectifyNum(req.body.page, 1, 0, Number.POSITIVE_INFINITY);
-  const count = rectifyNum(req.body.count, 5, 0, 500);
-  const order = setSortOrder(req.body.sort);
-  const productID = req.body.product_id;
+  const page = rectifyNum(Number.parseInt(req.query.page, 10), 1, 0, Number.POSITIVE_INFINITY);
+  const count = rectifyNum(Number.parseInt(req.query.count, 10), 5, 0, 500);
+  const order = setSortOrder(req.query.sort);
+  const productID = req.query.product_id;
   const responseBody = {
     product: productID,
     page,
@@ -90,7 +90,7 @@ module.exports.getReviews = async (req, res) => {
 };
 
 module.exports.getReviewsMeta = async (req, res) => {
-  const productID = req.body.product_id;
+  const productID = req.query.product_id;
   const responseBody = {
     product_id: productID,
   };

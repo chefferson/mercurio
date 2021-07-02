@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./API/index.js",
+    "start:prod": "NODE_ENV=production node ./API/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:tests": "webpack -w",
     "start:dev": "npx nodemon ./API/index.js",
